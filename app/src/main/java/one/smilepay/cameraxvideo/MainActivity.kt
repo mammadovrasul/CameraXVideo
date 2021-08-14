@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
 import androidx.camera.view.video.OnVideoSavedCallback
 import androidx.camera.view.video.OutputFileResults
 import androidx.core.content.ContextCompat
@@ -56,9 +54,8 @@ class MainActivity : AppCompatActivity() {
             onStopVideoRecording()
         } else {
             startVideoRecording()
-            // file = File(filesDir.absoluteFile, "omarito.mp4")
             file = File.createTempFile(
-                "omarito",
+                "smilepay",
                 ".mp4",
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             )
@@ -86,22 +83,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 onPermissionDenied()
             }
-        }
-    }
-
-    private val imageSavedCallback = object : ImageCapture.OnImageSavedCallback {
-        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-            showResultMessage(getString(R.string.image_capture_success))
-        }
-
-        override fun onError(exception: ImageCaptureException) {
-            showResultMessage(
-                getString(
-                    R.string.image_capture_error,
-                    exception.message,
-                    exception.imageCaptureError
-                )
-            )
         }
     }
 
